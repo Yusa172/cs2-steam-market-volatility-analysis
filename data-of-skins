@@ -1,0 +1,101 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from urllib.parse import quote
+import json
+import time
+import pandas as pd
+import numpy as np
+import re
+import os
+
+base_skin = "AK-47 | Redline"
+
+wears = [
+    "Factory New",
+    "Minimal Wear",
+    "Field-Tested",
+    "Well-Worn",
+    "Battle-Scarred"
+]
+
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+driver.get("https://steamcommunity.com/market/")
+input("Faz login e pressiona ENTER...")
+
+all_data = []
+
+for wear in wears:
+    
+    skin_full = f"{base_skin} ({wear})"
+    encoded_name = quote(skin_full)
+    
+    url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={encoded_name}"
+    
+    print("A tentar:", skin_full)
+    
+    driver.get(url)
+    time.sleep(3)
+    
+    try:
+        text = driver.find_element("tag name", "body").text
+        data = json.loads(text)
+    except:
+        print("Erro JSON:", skin_full)
+        continue
+    
+    if not isinstance(data, dict):
+        continue
+    
+    prices = data.get("prices", [])
+    
+    if not isinstance(prices, list) or len(prices) == 0:
+        print("Sem dados:", skin_full)
+        continue
+    
+    df = pd.DataFrame(prices).iloc[:, :3]
+    df.columns = ["date", "price", "volume"]
+    
+    df["date"] = df["date"].astype(str).str.extract(r"([A-Za-z]{3} \d{1,2} \d{4})")
+    df["date"] = pd.to_datetime(df["date"], format="%b %d %Y", errors="coerce")
+    
+    df["price"] = df["price"].astype(str).str.replace(",", ".", regex=False).astype(float)
+    df["volume"] = pd.to_numeric(df["volume"], errors="coerce")
+    
+    df = df.dropna()
+    
+    df["skin"] = base_skin
+    df["wear"] = wear
+    
+    all_data.append(df)
+
+driver.quit()
+
+if len(all_data) == 0:
+    print("Nenhum dado recolhido.")
+else:
+    final_df = pd.concat(all_data, ignore_index=True)
+    
+    final_df = final_df.sort_values(["skin", "wear", "date"])
+    
+    final_df["log_price"] = np.log(final_df["price"])
+    final_df["log_volume"] = np.log(final_df["volume"])
+    
+    final_df["wear_code"] = final_df["wear"].map({
+        "Factory New": 1,
+        "Minimal Wear": 2,
+        "Field-Tested": 3,
+        "Well-Worn": 4,
+        "Battle-Scarred": 5
+    })
+    
+    final_df = final_df.dropna()
+    
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    safe_name = re.sub(r'[^\w\s\(\)\-]', '', base_skin)
+    file_path = os.path.join(script_dir, f"{safe_name}_dataset.csv")
+    
+    final_df.to_csv(file_path, index=False)
+    
+    print("\nDataset pronto para R")
+    print("Localização:", file_path)
