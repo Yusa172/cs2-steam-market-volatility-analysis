@@ -1,36 +1,47 @@
 # CS2/CS:GO Skins Analysis and Market
 
-Project for collecting Steam Market price history and analysing price, volume and volatility for selected CS2/CS:GO skins, knives, stickers and cases.
+Projeto para recolher historico de precos do Steam Market e analisar preco, volume e volatilidade de skins, cases, knives e stickers de CS2/CS:GO.
 
-## Structure
+## Estrutura
 
-- `weapon_cases`: datasets, volatility outputs and graphs for weapon cases.
-- `galil_ar_chatterbox`: dataset, volatility outputs and graphs for Galil AR | Chatterbox.
-- `desert_eagle_blaze`: dataset, volatility outputs and graphs for Desert Eagle | Blaze.
-- `paracord_knives`: datasets, volatility outputs and graphs for Paracord knives.
-- `major_stickers`: datasets, volatility outputs and graphs for Major stickers.
-- `generate_all_datasets.py`: main Python script that generates all datasets.
-- `for-links.py`: simplified Steam Market scraping example for future work.
+- `weapon_cases`: datasets, analise R e graficos de weapon cases.
+- `galil_ar_chatterbox`: dataset, analise R e graficos da Galil AR | Chatterbox.
+- `desert_eagle_blaze`: dataset, analise R e graficos da Desert Eagle | Blaze.
+- `paracord_knives`: datasets, analise R e graficos de Paracord knives.
+- `major_stickers`: datasets, analise R e graficos de stickers de Majors.
+- `generate_all_datasets.py`: script principal para gerar todos os datasets.
+- `for-links.py`: exemplo simples para recolher historico de precos da Steam.
+- `ANALYSIS_GUIDE.md`: explicacao das variaveis, metricas e interpretacao da volatilidade.
 
-## Python setup
+## Python
+
+Instalar dependencias:
 
 ```powershell
 py -m pip install -r requirements.txt
 ```
 
-Run all dataset collectors:
+Gerar todos os datasets:
 
 ```powershell
 py generate_all_datasets.py
 ```
 
-Run the simple Steam Market example:
+Executar o exemplo simples da Steam:
 
 ```powershell
 py for-links.py
 ```
 
-## R analysis
+## R
+
+Pacotes necessarios:
+
+```r
+install.packages(c("tidyverse", "lubridate", "readr"))
+```
+
+Scripts de analise:
 
 - `weapon_cases/analyze_weapon_cases.R`
 - `galil_ar_chatterbox/analyze_galil_ar_chatterbox.R`
@@ -38,8 +49,23 @@ py for-links.py
 - `paracord_knives/analyze_paracord_knives.R`
 - `major_stickers/analyze_major_stickers.R`
 
-Each R script exports improved graphs to its `graphs` folder and creates volatility summary files next to the dataset.
+Cada script R limpa os dados, calcula retornos, volatilidade e metricas de risco, e guarda:
 
-Basic market-price-only charts are saved in each `graphs/basic` folder. Event lines are included where relevant, including CS2 events and the Paracord Knife Trade-Up Update on 2025-10-23.
+- dataset tratado com metricas de volatilidade;
+- resumo estatistico;
+- graficos melhorados;
+- graficos basicos apenas com `date` e `price`.
+
+## Analise
+
+O guia principal da analise esta em `ANALYSIS_GUIDE.md`.
+
+Pontos principais:
+
+- A volatilidade e calculada a partir dos retornos logaritmicos dos precos.
+- A anualizacao usa `sqrt(365)`, porque o Steam Market funciona todos os dias e nao apenas em dias uteis.
+- Um movimento grande e marcado quando a variacao absoluta diaria e igual ou superior a 5%.
+- Os graficos com volatilidade ajudam a mostrar se o preco das skins muda de forma instavel ao longo do tempo.
 
 Current weapon cases included: Operation Breakout Weapon Case, Chroma Case and Revolver Case.
+
