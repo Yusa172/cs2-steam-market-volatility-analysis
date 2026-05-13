@@ -1,0 +1,9 @@
+Galil Ar Chatterbox volatility summary
+Annualization days: 365
+
+Galil AR | Chatterbox (Field-Tested)
+Annualized volatility: 216.52%
+Days above 5% move: 1872
+Price range: 5696.54%
+Biggest daily gain: 88.29%
+Biggest daily loss: -95.11%

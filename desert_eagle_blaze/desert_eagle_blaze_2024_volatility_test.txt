@@ -1,0 +1,14 @@
+Desert Eagle Blaze 2024 volatility test
+
+Annualization days: 365
+Observations: 254
+Price range: 116.05%
+Daily return standard deviation: 8.67%
+Annualized volatility: 165.68%
+Average absolute daily move: 5.43%
+Days with absolute movement above 5%: 88
+Share of days above 5%: 34.65%
+Biggest daily gain: 46.53%
+Biggest daily loss: -48.04%
+
+Interpretation: volatility exists because prices do not move smoothly; the log-return standard deviation, the annualized volatility and the number of days above 5% show measurable price instability.

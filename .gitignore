@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+
+.Python
+.venv/
+venv/
+env/
+
+.Rhistory
+.RData
+.Rproj.user/
+
+.DS_Store
+Thumbs.db
+
+steam_price_history_example.csv
+

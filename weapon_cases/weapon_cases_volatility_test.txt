@@ -1,0 +1,23 @@
+Weapon Cases volatility summary
+Annualization days: 365
+
+Chroma Case
+Annualized volatility: 88.79%
+Days above 5% move: 849
+Price range: 28570.00%
+Biggest daily gain: 34.92%
+Biggest daily loss: -53.15%
+
+Operation Breakout Weapon Case
+Annualized volatility: 59.78%
+Days above 5% move: 330
+Price range: 39926.67%
+Biggest daily gain: 37.42%
+Biggest daily loss: -45.93%
+
+Revolver Case
+Annualized volatility: 70.68%
+Days above 5% move: 401
+Price range: 23283.33%
+Biggest daily gain: 67.21%
+Biggest daily loss: -72.25%

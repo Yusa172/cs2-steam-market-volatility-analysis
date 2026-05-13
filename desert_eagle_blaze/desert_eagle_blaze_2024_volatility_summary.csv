@@ -1,0 +1,2 @@
+﻿observations,average_price,min_price,max_price,price_range_percent,daily_return_sd_percent,annualized_volatility_percent,average_absolute_daily_move_percent,days_with_moves_above_5_percent,share_of_days_above_5_percent,biggest_daily_gain_percent,biggest_daily_loss_percent
+254,641.4920708661417,502.124,1084.834,116.04902374712225,8.671996288757718,165.6782564664509,5.42697909871018,88,34.645669291338585,46.53241672626021,-48.04280251468943

@@ -1,0 +1,30 @@
+Major Stickers volatility summary
+Annualization days: 365
+
+Sticker | Cloud9 | Boston 2018
+Annualized volatility: 155.41%
+Days above 5% move: 1015
+Price range: 2302.16%
+Biggest daily gain: 51.90%
+Biggest daily loss: -57.01%
+
+Sticker | FaZe Clan | Antwerp 2022
+Annualized volatility: 247.64%
+Days above 5% move: 569
+Price range: 413.33%
+Biggest daily gain: 91.63%
+Biggest daily loss: -131.73%
+
+Sticker | Natus Vincere | Stockholm 2021
+Annualized volatility: 267.09%
+Days above 5% move: 1045
+Price range: 1726.67%
+Biggest daily gain: 98.08%
+Biggest daily loss: -135.24%
+
+Sticker | iBUYPOWER | Katowice 2014
+Annualized volatility: 281.73%
+Days above 5% move: 413
+Price range: 33730.21%
+Biggest daily gain: 124.01%
+Biggest daily loss: -116.86%

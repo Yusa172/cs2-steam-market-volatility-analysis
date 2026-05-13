@@ -1,0 +1,30 @@
+Paracord Knives volatility summary
+Annualization days: 365
+
+Paracord Knife | Case Hardened (Factory New)
+Annualized volatility: 587.47%
+Days above 5% move: 134
+Price range: 379.68%
+Biggest daily gain: 92.51%
+Biggest daily loss: -140.59%
+
+Paracord Knife | Crimson Web (Minimal Wear)
+Annualized volatility: 260.88%
+Days above 5% move: 421
+Price range: 1100.42%
+Biggest daily gain: 65.57%
+Biggest daily loss: -72.48%
+
+Paracord Knife | Fade (Factory New)
+Annualized volatility: 409.19%
+Days above 5% move: 958
+Price range: 92345.50%
+Biggest daily gain: 575.22%
+Biggest daily loss: -566.89%
+
+Paracord Knife | Slaughter (Factory New)
+Annualized volatility: 293.44%
+Days above 5% move: 900
+Price range: 2185.85%
+Biggest daily gain: 227.14%
+Biggest daily loss: -227.31%
