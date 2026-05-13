@@ -15,6 +15,22 @@ O foco principal e:
 - observar eventos importantes, como anuncio/lancamento do CS2 ou updates relevantes;
 - criar graficos simples e graficos com indicadores estatisticos.
 
+## Explicacao economica
+
+Economicamente, a volatilidade representa o grau de incerteza ou risco associado ao preco de um ativo. No contexto deste trabalho, os ativos sao skins, knives, stickers e cases negociados no Steam Market.
+
+Uma skin com preco estavel tende a ter variacoes pequenas ao longo do tempo. Uma skin volatil tem subidas e descidas fortes, o que significa que o seu preco e mais incerto. Isto pode acontecer por varias razoes:
+
+- alteracoes na procura dos jogadores;
+- baixa liquidez, ou seja, poucas vendas em alguns periodos;
+- especulacao dos investidores;
+- updates do jogo;
+- alteracoes em sistemas como trade-ups;
+- eventos competitivos ou anuncios importantes;
+- raridade e oferta limitada de certos itens.
+
+Por isso, a volatilidade nao mede se o item e "bom" ou "mau". Mede o quanto o preco varia. Um item pode subir muito e ainda assim ser volatil, porque tambem pode cair muito.
+
 ## Variaveis originais
 
 Os dados recolhidos da Steam chegam normalmente com estas colunas:
@@ -52,6 +68,20 @@ Os scripts tambem calculam variaveis novas para estudar risco e instabilidade de
 | `rolling_volume_14` | Media movel de 14 observacoes do volume | Usada nos scripts que tambem analisam volume. |
 | `rolling_volatility_30` | Desvio padrao movel dos retornos, anualizado | Mostra como a volatilidade muda ao longo do tempo. |
 
+## O que foi feito na analise
+
+Em cada script R, o processo foi:
+
+1. Carregar o dataset recolhido da Steam.
+2. Converter datas, precos e volumes para formatos numericos utilizaveis.
+3. Ordenar os dados por item e por data.
+4. Calcular retornos entre observacoes consecutivas.
+5. Calcular metricas de volatilidade e risco.
+6. Criar resumos estatisticos em CSV.
+7. Criar graficos de preco, volume, eventos e volatilidade.
+
+O objetivo nao foi apenas mostrar o preco historico. O objetivo foi transformar o preco em indicadores que permitam argumentar se o mercado apresenta instabilidade.
+
 ## Como a volatilidade e calculada
 
 A volatilidade e baseada no desvio padrao dos retornos logaritmicos.
@@ -70,6 +100,39 @@ Interpretacao:
 - `* 100` converte o resultado para percentagem.
 
 Quanto maior for a volatilidade anualizada, mais instavel e o preco do item.
+
+## Porque foram usados retornos logaritmicos
+
+Foi usado:
+
+```r
+log_return = log(price / lag(price))
+```
+
+Este tipo de retorno e comum em analise financeira porque compara precos de forma proporcional. O que interessa nao e apenas saber se o preco subiu 10 euros, mas sim quanto isso representa em percentagem face ao preco anterior.
+
+Exemplo economico:
+
+- uma subida de 10 euros num item de 50 euros e muito relevante;
+- uma subida de 10 euros num item de 1000 euros e muito menos relevante.
+
+Os retornos logaritmicos ajudam a comparar estes movimentos de forma mais justa entre itens com precos diferentes.
+
+## Porque foi usado 365
+
+Em mercados financeiros tradicionais, muitas vezes usa-se `sqrt(252)`, porque as bolsas costumam estar abertas apenas nos dias uteis.
+
+Neste trabalho foi usado:
+
+```r
+sqrt(365)
+```
+
+A razao e economica e pratica: o Steam Market nao fecha ao fim de semana. Os jogadores podem comprar e vender itens todos os dias do ano. Por isso, usar 365 faz mais sentido do que usar 252, porque o mercado analisado funciona continuamente.
+
+Este valor serve para anualizar a volatilidade. A ideia e transformar a volatilidade observada entre dias/observacoes numa medida anual comparavel. A variancia cresce aproximadamente com o tempo, e por isso o desvio padrao cresce com a raiz quadrada do tempo.
+
+Nota importante: como alguns itens podem nao ter vendas todos os dias, a anualizacao e uma aproximacao. Mesmo assim, `365` e mais adequado para este mercado do que `252`, porque nao existe fecho regular ao fim de semana.
 
 ## Resumo estatistico
 
@@ -103,6 +166,22 @@ Um item mostra sinais de volatilidade quando:
 Exemplo de interpretacao:
 
 > Se uma skin tem muitos dias com movimentos acima de 5% e uma volatilidade anualizada elevada, isso sugere que o seu preco nao evolui de forma estavel. O mercado desse item tem maior risco e maior incerteza.
+
+## Conclusoes economicas que se podem tirar
+
+Com esta analise, e possivel concluir que existe volatilidade quando os dados mostram:
+
+- precos com saltos visiveis nos graficos;
+- muitos movimentos diarios acima de 5%;
+- diferencas grandes entre preco minimo e preco maximo;
+- volatilidade anualizada elevada;
+- aumentos da volatilidade perto de eventos importantes.
+
+No caso das skins e itens de CS2/CS:GO, isto sugere que o preco nao depende apenas do valor estetico do item. O preco tambem e influenciado por procura, oferta, especulacao, liquidez e alteracoes feitas ao jogo.
+
+A principal conclusao do trabalho e que estes mercados funcionam como mercados digitais especulativos: os precos reagem a eventos, a interesse dos jogadores e a expectativas futuras. Por isso, alguns itens podem apresentar risco elevado para quem compra com objetivo de investimento.
+
+Esta analise nao prova sozinha a causa exata de cada subida ou descida. O que ela prova e que a instabilidade existe e pode ser medida com indicadores quantitativos.
 
 ## Graficos gerados
 
@@ -141,4 +220,3 @@ Cada pasta guarda outputs parecidos:
 A analise permite defender que existe volatilidade no mercado das skins quando os resultados mostram movimentos frequentes, amplitudes grandes entre minimo e maximo, e volatilidade anualizada elevada.
 
 No caso da Desert Eagle Blaze em 2024, o teste extra foi criado para mostrar isso de forma direta, usando retornos, movimentos acima de 5% e volatilidade anualizada.
-

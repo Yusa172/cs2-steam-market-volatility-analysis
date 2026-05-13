@@ -66,6 +66,7 @@ Pontos principais:
 - A anualizacao usa `sqrt(365)`, porque o Steam Market funciona todos os dias e nao apenas em dias uteis.
 - Um movimento grande e marcado quando a variacao absoluta diaria e igual ou superior a 5%.
 - Os graficos com volatilidade ajudam a mostrar se o preco das skins muda de forma instavel ao longo do tempo.
+- Economicamente, a volatilidade e usada como medida de risco e incerteza do preco.
+- A analise permite relacionar movimentos de preco com liquidez, especulacao, procura/oferta e eventos do jogo.
 
 Current weapon cases included: Operation Breakout Weapon Case, Chroma Case and Revolver Case.
-
