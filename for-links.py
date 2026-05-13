@@ -1,3 +1,20 @@
+"""
+Example script: Steam Community Market price history
+
+This file is intentionally simpler than generate_all_datasets.py.
+Use it as a starting point when you want to collect prices for new CS2 items.
+
+Basic workflow:
+1. Add item names to ITEMS.
+2. Run: py for-links.py
+3. Log in to Steam in the browser that opens.
+4. The script downloads the price history JSON for each item.
+5. A CSV is created with date, price, volume, item and steam_url.
+
+The Steam endpoint used here is:
+https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name=ITEM_NAME
+"""
+
 from __future__ import annotations
 
 import json
@@ -10,11 +27,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-
 APP_ID = 730
 OUTPUT_FILE = "steam_price_history_example.csv"
 
-# Escreve aqui os nomes exatamente como aparecem no Steam Market.
+# Add item names exactly as they appear on the Steam Community Market.
 ITEMS = [
     "AK-47 | Redline (Field-Tested)",
     "Desert Eagle | Blaze (Factory New)",
@@ -45,6 +61,7 @@ def get_price_history(driver: webdriver.Chrome, item_name: str) -> list:
     driver.get(url)
     time.sleep(3)
 
+    # Steam returns JSON in the browser body after login.
     body_text = driver.find_element("tag name", "body").text
     data = json.loads(body_text)
 
@@ -59,6 +76,7 @@ def get_price_history(driver: webdriver.Chrome, item_name: str) -> list:
 
 
 def price_history_to_dataframe(item_name: str, prices: list) -> pd.DataFrame:
+    # The first three values returned by Steam are date, price and volume.
     df = pd.DataFrame(prices).iloc[:, :3]
     df.columns = ["date", "price", "volume"]
 

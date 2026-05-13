@@ -2,6 +2,8 @@
 
 Este ficheiro explica o que os scripts em R calculam, que variaveis aparecem nos datasets e como interpretar as metricas principais.
 
+As formulas usadas seguem a logica comum de volatilidade historica: calcular retornos, medir o desvio padrao desses retornos e anualizar pela raiz quadrada do numero de periodos. As fontes usadas estao no fim deste ficheiro.
+
 ## Objetivo da analise
 
 A analise serve para perceber como o mercado de cada item se comporta ao longo do tempo.
@@ -101,6 +103,8 @@ Interpretacao:
 
 Quanto maior for a volatilidade anualizada, mais instavel e o preco do item.
 
+Esta abordagem foi usada porque a volatilidade historica, em financas, normalmente mede a dispersao dos retornos de um ativo. Ou seja, nao se mede apenas o preco em si, mas sim a forma como esse preco varia entre observacoes.
+
 ## Porque foram usados retornos logaritmicos
 
 Foi usado:
@@ -133,6 +137,8 @@ A razao e economica e pratica: o Steam Market nao fecha ao fim de semana. Os jog
 Este valor serve para anualizar a volatilidade. A ideia e transformar a volatilidade observada entre dias/observacoes numa medida anual comparavel. A variancia cresce aproximadamente com o tempo, e por isso o desvio padrao cresce com a raiz quadrada do tempo.
 
 Nota importante: como alguns itens podem nao ter vendas todos os dias, a anualizacao e uma aproximacao. Mesmo assim, `365` e mais adequado para este mercado do que `252`, porque nao existe fecho regular ao fim de semana.
+
+Esta escolha tambem aproxima o Steam Market de outros mercados digitais que funcionam 24/7, como cryptoativos. Nesses mercados, e comum usar 365 periodos diarios para anualizar, porque ha negociacao continua durante fins de semana e feriados.
 
 ## Resumo estatistico
 
@@ -220,3 +226,9 @@ Cada pasta guarda outputs parecidos:
 A analise permite defender que existe volatilidade no mercado das skins quando os resultados mostram movimentos frequentes, amplitudes grandes entre minimo e maximo, e volatilidade anualizada elevada.
 
 No caso da Desert Eagle Blaze em 2024, o teste extra foi criado para mostrar isso de forma direta, usando retornos, movimentos acima de 5% e volatilidade anualizada.
+
+## Fontes usadas
+
+- [The Motley Fool - How to Calculate Annualized Volatility](https://www.fool.com/investing/how-to-calculate/annualized-volatility/): usado para confirmar a logica geral da volatilidade anualizada, em que se multiplica o desvio padrao pela raiz quadrada do numero de periodos.
+- [Loris Tools - Historical Volatility Calculator](https://loris.tools/tools/volatility-calculator): usado como referencia para o calculo de volatilidade historica com retornos logaritmicos, desvio padrao e anualizacao; tambem refere o uso de `sqrt(365)` em mercados que negociam todos os dias.
+- [Internal Steam Web API Wiki - Get Market Price History](https://github-wiki-see.page/m/Revadike/InternalSteamWebAPI/wiki/Get-Market-Price-History): usado como referencia comunitaria para o endpoint `pricehistory` da Steam Community Market.
