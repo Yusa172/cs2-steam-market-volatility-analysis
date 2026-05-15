@@ -2,8 +2,6 @@
 
 Projeto para recolher historico de precos do Steam Market e analisar preco, volume e volatilidade de skins, cases, knives e stickers de CS2/CS:GO.
 
-Nome recomendado para o repositorio: `cs2-steam-market-volatility-analysis`.
-
 ## Estrutura
 
 - `weapon_cases`: datasets, analise R e graficos de weapon cases.
