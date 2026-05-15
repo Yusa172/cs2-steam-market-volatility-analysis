@@ -89,6 +89,5 @@ Pontos principais:
 
 - [The Motley Fool - How to Calculate Annualized Volatility](https://www.fool.com/investing/how-to-calculate/annualized-volatility/)
 - [Loris Tools - Historical Volatility Calculator](https://loris.tools/tools/volatility-calculator)
-- [Internal Steam Web API Wiki - Get Market Price History](https://github-wiki-see.page/m/Revadike/InternalSteamWebAPI/wiki/Get-Market-Price-History)
 
 Current weapon cases included: Operation Breakout Weapon Case, Chroma Case and Revolver Case.
